@@ -12,8 +12,28 @@ if [ $isPresent -eq 1 ]
 then
 	echo "Employee is present"
 	salary=$(( $WagePerHr * $DayPerHr ))
-else
-	 echo "Employee is not present"
+
+	echo "Daily Employee Wage = " $salary
 fi
 
-echo "Daily Employee Wage = " $salary
+
+isPart=0
+isFull=1
+empRate=20
+totalSalary=0
+
+if [ $isPresent -eq $isFull ]
+then
+	empHrs=8
+	echo "Working full time..."
+elif [ $isPresent -eq $isPart ]
+then
+	empHrs=4
+	echo "Working part time..."
+else
+	echo "Employee is not present"
+fi
+
+totalSalary=$(( $empHrs * $empRate ))
+
+echo "Total Salary = " $totalSalary
