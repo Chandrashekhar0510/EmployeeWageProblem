@@ -22,18 +22,20 @@ isFull=1
 empRate=20
 totalSalary=0
 
-if [ $isPresent -eq $isFull ]
-then
-	empHrs=8
-	echo "Working full time..."
-elif [ $isPresent -eq $isPart ]
-then
-	empHrs=4
-	echo "Working part time..."
-else
-	echo "Employee is not present"
-fi
+case $isPresent in
+	$isPart)
+		empHrs=8
+		echo "Working part time..."
+		;;
+	$isFull)
+		empHrs=4
+		echo "Working full time..."
+		;;
+	*)
+		empHrs=0
+		echo "Employee is not present"
+esac
 
-totalSalary=$(( $empHrs * $empRate ))
+totalSalary=$(( $empHrs * $empRate + $salary ))
 
 echo "Total Salary = " $totalSalary
