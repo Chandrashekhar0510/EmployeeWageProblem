@@ -17,30 +17,39 @@ then
 fi
 
 
-isPart=0
-isFull=1
+isPart=1
+isFull=2
 empRate=20
-totalSalary=0
 totalDay=20
+maxHrs=100
 
-for (( day=1; day<=$totalDay; day++ ))
+totalSalary=0
+totalEmpHrs=0
+totalWorkingDays=0
+
+while [[ $totalEmpHrs -lt $maxHrs && $totalWorkingDays -lt $totalDay ]]
 do
-	temp=$(( RANDOM%2 ))
+	((totalWorkingDays++))
 
-	case $isPresent in
+	temp=$(( RANDOM%3 ))
+
+	case $temp in
 		$isPart)
 			empHrs=8
+			echo "Working part time"
 			;;
 		$isFull)
 			empHrs=4
+			 echo "Working full time"
 			;;
 		*)
 			empHrs=0
+			 echo "Employee is not present"
 			;;
 	esac
 
-	salary=$(( $empHrs * $empRate ))
-	totalSalary=$(( $totalsalary + $salary + $wage ))
+	totalEmpHrs=$(( $totalEmpHrs + $empHrs ))
 done
 
+totalSalary=$(( $totalEmpHrs * $empRate ))
 echo "Total Salary = " $totalSalary
