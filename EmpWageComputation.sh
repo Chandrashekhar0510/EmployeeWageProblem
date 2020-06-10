@@ -26,6 +26,26 @@ maxHrs=100
 totalSalary=0
 totalEmpHrs=0
 totalWorkingDays=0
+empHrs=0
+
+
+function getWorkingHrsFunc()
+{
+	 case $temp in
+                $isPart)
+                        empHrs=8
+                        echo $empHrs
+			;;
+                $isFull)
+                        empHrs=4
+                        echo $empHrs
+			;;
+                *)
+                        empHrs=0
+			echo $empHrs
+                        ;;
+        esac
+}
 
 while [[ $totalEmpHrs -lt $maxHrs && $totalWorkingDays -lt $totalDay ]]
 do
@@ -33,22 +53,8 @@ do
 
 	temp=$(( RANDOM%3 ))
 
-	case $temp in
-		$isPart)
-			empHrs=8
-			echo "Working part time"
-			;;
-		$isFull)
-			empHrs=4
-			 echo "Working full time"
-			;;
-		*)
-			empHrs=0
-			 echo "Employee is not present"
-			;;
-	esac
-
-	totalEmpHrs=$(( $totalEmpHrs + $empHrs ))
+	workingHrs=$( getWorkingHrsFunc $temp )
+	totalEmpHrs=$(( $totalEmpHrs + $workingHrs ))
 done
 
 totalSalary=$(( $totalEmpHrs * $empRate ))
